@@ -1,27 +1,27 @@
 #include <Windows.h>
 #include "WindowProcess.h"
 
-// ´°¿Ú³ß´ç
-int WindowWidth = 1640;
-int WindowHeight = 1480;
+// çª—å£å°ºå¯¸
+int WindowWidth = 640;
+int WindowHeight = 480;
 
-// ÉãÏñ»ú¡¢¹âÔ´
+// æ‘„åƒæœºã€å…‰æº
 Camera camera;
 Light light;
 
-int VNUM, SNUM; // ¶¥µãÊıÁ¿¡¢Èı½ÇÃæÊıÁ¿
-vertex_position VertexBuffer[50000];    // ¶¥µã»º´æ(raw)
-screen_position VertexBuffer_t[50000];  // ¶¥µã»º´æ(after transformation)
-Indexbuffer IndexBuffer[50000];         // Ë÷Òı»º´æ
+int VNUM, SNUM; // é¡¶ç‚¹æ•°é‡ã€ä¸‰è§’é¢æ•°é‡
+vertex_position VertexBuffer[50000];    // é¡¶ç‚¹ç¼“å­˜(raw)
+screen_position VertexBuffer_t[50000];  // é¡¶ç‚¹ç¼“å­˜(after transformation)
+Indexbuffer IndexBuffer[50000];         // ç´¢å¼•ç¼“å­˜
 
-// WinMainÖ÷º¯Êı
+// WinMainä¸»å‡½æ•°
 int WINAPI WinMain(
     HINSTANCE hinstance,
     HINSTANCE hPrevInstance,
     LPSTR lpCmdLine,
     int nCmdShow)
 {
-    // ×¢²á´°¿Ú
+    // æ³¨å†Œçª—å£
     WNDCLASSEX wd{};
     wd.cbSize = sizeof(WNDCLASSEX);
     wd.lpfnWndProc = MainWndProc;
@@ -30,27 +30,27 @@ int WINAPI WinMain(
 
     RegisterClassEx(&wd);
 
-    // ´´½¨´°¿Ú
+    // åˆ›å»ºçª—å£
     HWND hwd;
     hwd = CreateWindowEx(
-        NULL,                       // À©Õ¹´°¿ÚÑùÊ½£¬Ä¬ÈÏÎª0
-        wd.lpszClassName,           // ´°¿ÚÀàµÄÃû×Ö£¬±ØĞëÊÇÒÑ¾­register¹ıµÄÀàÃû
-        L"z_buffer",                // ´°¿ÚÀ¸Êµ¼ÊÏÔÊ¾µÄ±êÌâ
-        WS_OVERLAPPEDWINDOW,        // ´°¿ÚÑùÊ½£¬×îĞ¡»¯×î´ó»¯¹Ø±ÕµÈ
-        CW_USEDEFAULT,              // ³õÊ¼Î»ÖÃµÄ x ×ø±ê
-        CW_USEDEFAULT,              // ³õÊ¼Î»ÖÃµÄ y ×ø±ê
-        WindowWidth,                // ¿í¶È
-        WindowHeight,               // ¸ß¶È
-        NULL,                       // ¸¸´°¿Ú¾ä±ú£¬Ä¬ÈÏÎª0
-        NULL,                       // ÎŞĞèÌí¼Ó²Ëµ¥£¬Ä¬ÈÏÎª0
-        hinstance,                  // Ó¦ÓÃ³ÌĞòÊµÀı¾ä±ú
-        NULL                        // ¶îÍâ²ÎÊı£¬Ä¬ÈÏÎª0
+        NULL,                       // æ‰©å±•çª—å£æ ·å¼ï¼Œé»˜è®¤ä¸º0
+        wd.lpszClassName,           // çª—å£ç±»çš„åå­—ï¼Œå¿…é¡»æ˜¯å·²ç»registerè¿‡çš„ç±»å
+        L"z_buffer",                // çª—å£æ å®é™…æ˜¾ç¤ºçš„æ ‡é¢˜
+        WS_OVERLAPPEDWINDOW,        // çª—å£æ ·å¼ï¼Œæœ€å°åŒ–æœ€å¤§åŒ–å…³é—­ç­‰
+        CW_USEDEFAULT,              // åˆå§‹ä½ç½®çš„ x åæ ‡
+        CW_USEDEFAULT,              // åˆå§‹ä½ç½®çš„ y åæ ‡
+        WindowWidth,                // å®½åº¦
+        WindowHeight,               // é«˜åº¦
+        NULL,                       // çˆ¶çª—å£å¥æŸ„ï¼Œé»˜è®¤ä¸º0
+        NULL,                       // æ— éœ€æ·»åŠ èœå•ï¼Œé»˜è®¤ä¸º0
+        hinstance,                  // åº”ç”¨ç¨‹åºå®ä¾‹å¥æŸ„
+        NULL                        // é¢å¤–å‚æ•°ï¼Œé»˜è®¤ä¸º0
     );
 
-    // ÏÔÊ¾´°¿Ú
+    // æ˜¾ç¤ºçª—å£
     ShowWindow(hwd, nCmdShow); // SW_NORMAL
 
-    // ÏûÏ¢Ñ­»·
+    // æ¶ˆæ¯å¾ªç¯
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0) != 0)
     {
